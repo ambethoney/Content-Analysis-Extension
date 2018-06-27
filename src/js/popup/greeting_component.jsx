@@ -30,9 +30,9 @@ class Greeting extends React.Component {
         <h1>Analyze This!</h1>
         <p> How positive or negative is the content you're about to read? Click the button below to find out!</p>
         <button onClick={() => {this.startAnalyzer()}}>Analyze</button>
-        <p>Sentiment: <span className={this.state.sentiment > 0 ? 'positive' : 'negative'}>{this.state.sentiment}</span></p>
-        <p>Positive words: {this.state.positive}</p>
-        <p>Negative words: {this.state.negative}</p>
+        <p>Sentiment: <span className={`bold ${this.state.sentiment > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</span></p>
+        <p>Positive words: <span className="bold">{this.state.positive}</span></p>
+        <p>Negative words: <span className="bold">{this.state.negative}</span></p>
       </div>
     )
   }
