@@ -12,19 +12,6 @@ class Greeting extends React.Component {
     }
   }
 
-  getCurrentWindowActiveTabIndex() {
-    return new Promise((resolve, reject) => {
-      chrome.tabs.query({
-        currentWindow: true,
-        active: true,
-      }, (currentWindowActiveTabs = []) => {
-        if (!currentWindowActiveTabs.length) reject();
-        resolve(currentWindowActiveTabs[0].index);
-      });
-    });
-  }
-
-
   startAnalyzer () {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {message: "text"}, (response) => {
@@ -37,24 +24,13 @@ class Greeting extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    this.setState({
-      sentiment: response.data.score,
-      negative: response.data.negative.length,
-      positive: response.data.positive.length,
-    })
-  }
-
-
   render () {
     return (
       <div>
-        <h1>Sentiment Analysis</h1>
+        <h1>Analyze This!</h1>
         <p> How positive or negative is the content you're about to read? Click the button below to find out!</p>
         <button onClick={() => {this.startAnalyzer()}}>Analyze</button>
-        <p>Sentiment:</p>
-        {this.state.sentiment}
-        <p>Based on:</p>
+        <p>Sentiment: <span className={this.state.sentiment > 0 ? 'positive' : 'negative'}>{this.state.sentiment}</span></p>
         <p>Positive words: {this.state.positive}</p>
         <p>Negative words: {this.state.negative}</p>
       </div>
