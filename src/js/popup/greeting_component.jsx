@@ -24,20 +24,27 @@ class Greeting extends React.Component {
     });
   }
 
-  startAnalyzer () {
-    // this.getCurrentWindowActiveTabIndex()
-    //   .then(tabIndex => {
 
+  startAnalyzer () {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      // alert(tabs[0].id)
       chrome.tabs.sendMessage(tabs[0].id, {message: "text"}, (response) => {
-        console.log(response.data.score)
         this.setState({
-          sentiment: response.data.score
+          sentiment: response.data.score,
+          negative: response.data.negative.length,
+          positive: response.data.positive.length,
         })
       })
     });
   }
+
+  componentDidUpdate() {
+    this.setState({
+      sentiment: response.data.score,
+      negative: response.data.negative.length,
+      positive: response.data.positive.length,
+    })
+  }
+
 
   render () {
     return (
@@ -47,6 +54,9 @@ class Greeting extends React.Component {
         <button onClick={() => {this.startAnalyzer()}}>Analyze</button>
         <p>Sentiment:</p>
         {this.state.sentiment}
+        <p>Based on:</p>
+        <p>Positive words: {this.state.positive}</p>
+        <p>Negative words: {this.state.negative}</p>
       </div>
     )
   }
