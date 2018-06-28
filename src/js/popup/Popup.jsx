@@ -105,7 +105,7 @@ class Popup extends React.Component {
 
   positiveAnalysis () {
     return(
-      <section>
+      <section className="analysisContain">
         <p>There are <span className="bold">{this.state.positive.count}</span> positive words.</p>
         <button
           className="toggleBtn"
@@ -117,7 +117,7 @@ class Popup extends React.Component {
 
   negativeAnalysis () {
     return(
-      <section>
+      <section className="analysisContain">
         <p>There are <span className="bold">{this.state.negative.count}</span> negative words.</p>
         <button
           className="toggleBtn"
@@ -166,7 +166,6 @@ class Popup extends React.Component {
 
         <h2 className={`sentiment bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</h2>
         {this.showSentiment()}
-
         {this.state.sentimentNum < -49 ? <Gif/> : ''}
       </main>
     )

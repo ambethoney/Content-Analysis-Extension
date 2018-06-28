@@ -1,0 +1,17 @@
+.toggleGif {
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.theGif {
+  width:100%;
+  height:0;
+  padding-bottom:75%;
+  position:relative;
+}
+
+.giphyEmbed {
+  width:100%;
+  height:100%;
+  position:absolute;
+}

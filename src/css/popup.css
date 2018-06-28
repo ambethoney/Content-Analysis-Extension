@@ -11,17 +11,26 @@ button.analyzeBtn {
   width: 50%;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+
 .sentiment {
   margin-top: 0;
   text-align: center;
 }
 
-.bold {
-  font-weight: bold;
+.positive {
+  color: green;
 }
 
-button:hover {
-  cursor: pointer;
+.negative {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .speedometerContain {
@@ -33,12 +42,8 @@ button:hover {
   display: none;
 }
 
-.positive {
-  color: green;
-}
-
-.negative {
-  color: red;
+.analysisContain {
+  text-align: center;
 }
 
 .wordList.false {
@@ -47,4 +52,14 @@ button:hover {
 
 .wordlist.true {
   display: block;
+}
+
+ul {
+  padding: 0;
+  margin: 10px auto;
+}
+
+li {
+  margin: 5px;
+  list-style-type: none;
 }
