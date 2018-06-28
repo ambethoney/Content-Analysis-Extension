@@ -26,7 +26,7 @@ class Gif extends React.Component {
         <p> Reading negative content can really affect your mood. Don’t forget to take a break with something cute. :)</p>
         <button
         className="toggleGif"
-        onClick={() => this.getGif()}>Show me the animals!</button>
+        onClick={() => this.getGif()}>Show me something cute!</button>
         <div className="theGif">
           <iframe src={this.state.url} title={this.state.title} frameBorder="0" className="giphyEmbed" allowFullScreen></iframe>
         </div>
