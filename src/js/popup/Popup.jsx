@@ -1,7 +1,8 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
 
-import Analyzer from './Analyzer.jsx'
+import Gif from './Gif'
+import ReactSpeedometer from 'react-d3-speedometer'
 
 class Popup extends React.Component {
 
@@ -52,20 +53,12 @@ class Popup extends React.Component {
       })
     });
   }
-  // let words = ["legal","talent","help","romance","aboard","want","solved","increase","recommended","♥","active","want","welcome","like","like","accepted","active","appreciated","help","welcome","certain","favorite","♥", "share","join"]
-
-  showPositiveWords(){
-    return this.countDupes(this.state.positive.words)
-    // let txt = ''
-    // let arr = this.countDupes(words)
-    // return arr.join(' ')
-  }
 
   countDupes(arr){
     let counts = {}
     arr.forEach((elem) => counts[elem] = (counts[elem] || 0)+1 )
     let sorted = this.sortDupes(counts)
-    return sorted.join(' ')
+    return sorted
   }
 
   sortDupes(counts){
@@ -76,7 +69,13 @@ class Popup extends React.Component {
     sortable.sort(function(a, b) {
         return a[1] - b[1];
     });
-    return sortable.reverse().slice(0, 3)
+
+    let reversed = sortable.reverse().slice(0, 3)
+    return reversed
+  }
+
+  showPositiveWords(){
+    return this.countDupes(this.state.positive.words)
   }
 
   showNegativeWords () {
@@ -84,19 +83,42 @@ class Popup extends React.Component {
   }
 
   render () {
+
+    // Cap super negative/positive numbers at 100, purely for aesthetics
+    let sentVal
+    if (this.state.sentimentNum > 100) {
+      sentVal = 100
+    } else if (this.state.sentimentNum < -100) {
+      sentVal = -100
+    } else {
+      sentVal = this.state.sentimentNum
+    }
+
     return (
-      <div>
+      <main>
         <h1>Analyze This!</h1>
         <p> How positive or negative is the content you're about to read? Click the button below to find out!</p>
         <button onClick={() => this.startAnalyzer()}>Analyze</button>
-        <p>Sentiment: <span className={`bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}, {this.state.sentimentNum}</span></p>
-        <p>Positive words: <span className="bold">{this.state.positive.count}</span></p>
+        <fig className="speedometerContain">
+          <ReactSpeedometer
+            minValue={-100}
+            maxValue={100}
+            value={sentVal ? sentVal : 0}
+            height={175}
+          />
+        </fig>
+        <h2 className={`sentiment bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</h2>
+        <p>Positive words <span className="bold">{this.state.positive.count}</span></p>
         <p>The three most used positive words are:</p>
         <p>{this.showPositiveWords()}</p>
         <p>Negative words: <span className="bold">{this.state.negative.count}</span></p>
         <p>The three most used negative words are:</p>
         <p>{this.showNegativeWords()}</p>
-      </div>
+
+        {this.state.sentimentNum < -49 ?
+          <Gif/> : ''
+        }
+      </main>
     )
   }
 };

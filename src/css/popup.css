@@ -6,6 +6,14 @@
 button {
   padding: 5px;
   font-weight: bold;
+  margin:0 auto;
+  display:block;
+  width: 50%;
+}
+
+.sentiment {
+  margin-top: 0;
+  text-align: center;
 }
 
 .bold {
@@ -14,6 +22,15 @@ button {
 
 button:hover {
   cursor: pointer;
+}
+
+.speedometerContain {
+  text-align: center;
+}
+
+.speedometer .current-value,
+.speedometer .label {
+  display: none;
 }
 
 .positive {

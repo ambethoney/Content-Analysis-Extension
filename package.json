@@ -9,6 +9,7 @@
   "dependencies": {
     "fsevents": "^1.2.4",
     "react": "^15.3.2",
+    "react-d3-speedometer": "^0.3.2",
     "react-dom": "^15.3.2",
     "sentiment": "^5.0.0"
   },
