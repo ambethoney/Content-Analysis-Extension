@@ -13,6 +13,7 @@ class Popup extends React.Component {
       sentimentNum: null,
       negative: {count: null, words: []},
       positive: {count: null, words: []},
+      toggleWords: false,
     }
   }
 
@@ -75,11 +76,61 @@ class Popup extends React.Component {
   }
 
   showPositiveWords(){
-    return this.countDupes(this.state.positive.words)
+    let arr = this.countDupes(this.state.positive.words)
+    return(
+      <ul className={`wordList ${this.state.toggleWords}`}>
+        {arr.map((elem, index) => <li key={ index }>{elem[0]} appears {elem[1]} times</li>)}
+      </ul>
+    )
   }
 
   showNegativeWords () {
-    return this.countDupes(this.state.negative.words)
+    let arr = this.countDupes(this.state.negative.words)
+    return(
+      <ul className={`wordList ${this.state.toggleWords}`}>
+        {arr.map((elem, index) => <li key={ index }>{elem[0]} appears {elem[1]} times</li>)}
+      </ul>
+    )
+  }
+
+  showSentiment () {
+    if (this.state.sentimentNum > 10) {
+      return this.positiveAnalysis()
+    } else if (this.state.sentimentNum < -10) {
+      return this.negativeAnalysis()
+    } else {
+      return false
+    }
+  }
+
+  positiveAnalysis () {
+    return(
+      <section>
+        <p>There are <span className="bold">{this.state.positive.count}</span> positive words.</p>
+        <button
+          className="toggleBtn"
+          onClick={() => this.toggleWords()}>Check out the top 3 most used words</button>
+          {this.showPositiveWords()}
+      </section>
+    )
+  }
+
+  negativeAnalysis () {
+    return(
+      <section>
+        <p>There are <span className="bold">{this.state.negative.count}</span> negative words.</p>
+        <button
+          className="toggleBtn"
+          onClick={() => this.toggleWords()}>Check out the top 3 most used words</button>
+          {this.showNegativeWords()}
+      </section>
+    )
+  }
+
+  toggleWords () {
+    this.setState(prevState => ({
+      toggleWords: !prevState.toggleWords
+    }));
   }
 
   render () {
@@ -98,7 +149,12 @@ class Popup extends React.Component {
       <main>
         <h1>Analyze This!</h1>
         <p> How positive or negative is the content you're about to read? Click the button below to find out!</p>
-        <button onClick={() => this.startAnalyzer()}>Analyze</button>
+        <button
+          className="analyzeBtn"
+          onClick={() => this.startAnalyzer()}>
+          Analyze
+        </button>
+
         <fig className="speedometerContain">
           <ReactSpeedometer
             minValue={-100}
@@ -107,17 +163,11 @@ class Popup extends React.Component {
             height={175}
           />
         </fig>
-        <h2 className={`sentiment bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</h2>
-        <p>Positive words <span className="bold">{this.state.positive.count}</span></p>
-        <p>The three most used positive words are:</p>
-        <p>{this.showPositiveWords()}</p>
-        <p>Negative words: <span className="bold">{this.state.negative.count}</span></p>
-        <p>The three most used negative words are:</p>
-        <p>{this.showNegativeWords()}</p>
 
-        {this.state.sentimentNum < -49 ?
-          <Gif/> : ''
-        }
+        <h2 className={`sentiment bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</h2>
+        {this.showSentiment()}
+
+        {this.state.sentimentNum < -49 ? <Gif/> : ''}
       </main>
     )
   }

@@ -3,7 +3,7 @@
   height: 100vH;
 }
 
-button {
+button.analyzeBtn {
   padding: 5px;
   font-weight: bold;
   margin:0 auto;
@@ -39,4 +39,12 @@ button:hover {
 
 .negative {
   color: red;
+}
+
+.wordList.false {
+  display: none;
+}
+
+.wordlist.true {
+  display: block;
 }
