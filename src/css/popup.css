@@ -3,6 +3,10 @@
   height: 100vH;
 }
 
+h1 {
+  text-align: center;
+}
+
 button.analyzeBtn {
   padding: 5px;
   font-weight: bold;

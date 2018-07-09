@@ -157,12 +157,12 @@ class Popup extends React.Component {
 
     return (
       <main>
-        <h1>Analyze this Content!</h1>
+        <h1>Content Analysis</h1>
         <p> How positive or negative is the content you're about to read? Click the button below to find out!</p>
         <button
           className="analyzeBtn"
           onClick={() => this.startAnalyzer()}>
-          Analyze
+          Evaluate
         </button>
 
         <fig className="speedometerContain">
