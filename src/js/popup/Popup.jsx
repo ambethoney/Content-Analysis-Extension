@@ -67,7 +67,7 @@ class Popup extends React.Component {
     for (let word in counts) {
         sortable.push([word, counts[word]]);
     }
-    sortable.sort(function(a, b) {
+    sortable.sort((a, b) => {
         return a[1] - b[1];
     });
 
@@ -116,7 +116,6 @@ class Popup extends React.Component {
       </section>
     )
   }
-
 
   neutralAnalysis () {
     return(
@@ -177,7 +176,7 @@ class Popup extends React.Component {
 
         <h2 className={`sentiment bold ${this.state.sentimentNum > 0 ? 'positive' : 'negative'}`}>{this.state.sentiment}</h2>
         {this.showSentiment()}
-        {this.state.sentimentNum < -49 ? <Gif/> : ''}
+        {this.state.sentimentNum < -10 ? <Gif/> : ''}
       </main>
     )
   }
